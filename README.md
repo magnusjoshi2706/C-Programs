@@ -9,5 +9,5 @@ Student data using struct----> here i have created one simple structure and stor
 
 students results and declered top students--------->  here i have created one struct and stored the value in it. here i have used for loop taking the input                                                       by the user and then there i used temp logic for assending order marks. so it can show top students                                                         list after succesfull the program.
 
-
+stored data is main imporantant in c. there i have use malloc,calloc and simple array for storing elements one by one there i used goto for loop and switch                                                       case etc.... 
 

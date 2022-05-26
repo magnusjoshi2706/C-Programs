@@ -1,18 +1,24 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-int press,selection,choise2,num,seatadd,i,j,n;
-char trainname[20];
-int trainnum[20];
+int press,selection,choise2,num,seatadd,i,j,n,day,month,year;
+char src[20];
+char dest[20];
 int disp[15][6];
-int trainprice[20];
-//char trainroute[40];
 void adminlogin();
 void userlogin();
 void details();
+int date();
+void train();
 struct route{
     char trainroute[30];
-}r;
+}r[30];
+struct print{
+int trainnum;
+int trainprice;
+char trainname[30];
+}p[30];
+
 int main()
 {
     printf("\t\t=================================================\n");
@@ -40,7 +46,7 @@ switch(selection)
           printf("\n\n\n            WELCOME TO USER                         \n\n\n");
           printf("\n\n\n            ==============                          \n\n\n");
           userlogin();
-          //details();
+          
           
           
           break;
@@ -63,11 +69,11 @@ switch(selection)
                       for(int i=0;i<num;i++)
                       {
                       printf("Enter the %d train Number\n",i+1);
-                      scanf("%d",&trainnum);
+                      scanf(" %d",&p[i].trainnum);
                       printf("Enter the %d Train Name\n",i+1);
-                      scanf(" %[^\n]s",trainname);
+                      scanf(" %[^\n]s",p[i].trainname);
                       printf("Enter the price of single seat\n");
-                      scanf("%d",&trainprice);
+                      scanf(" %d",&p[i].trainprice);
                       }
                       printf("your Train Added successfull:-->\n");
                       goto lebel4;
@@ -75,14 +81,14 @@ switch(selection)
             case 2:
                      printf("=========Here you can Enter the station\n");
                      printf("Enter The num of Station :\n");
-                     scanf("%d",&n);
+                     scanf("%d\n",&n);
                      for(int i=0;i<n;i++)
                      {
-                         scanf(" %[^\n]s", r.trainroute[i]);
+                         scanf(" %[^\n]s", r[i].trainroute);
                      }
                      for(int i=0;i<n;i++)
                      {
-                         printf("Your Stations are : %s",r.trainroute[i]);
+                         printf("Your Stations are : %s\n",r[i].trainroute);
                      }
                      printf("your Train Added successfull\n");
                      goto lebel4;
@@ -144,8 +150,8 @@ void adminlogin()
 
 void userlogin()
 {
-char password[10],arr1[10];
-char username[10];
+char password[20],arr1[20];
+char username[20];
 int i;
  
         printf("Enter User name: ");
@@ -168,6 +174,7 @@ int i;
       if(strcmp(password,arr1)==0)
       {
          printf("login successfull\n");
+         details();
       }
       else
       {
@@ -176,3 +183,126 @@ int i;
          goto lebel3;
       }
 }
+
+void details()
+{
+    int flag=0;
+    lebel5:
+    printf("Enter Your Source and Destination :-->\n");
+    for(int i=0;i<n;i++)
+    {
+    printf("Available Stops are :%s\n",r[i].trainroute);
+    }
+    printf("Source:\n");
+    scanf("%s",src);
+    printf("Destination:\n");
+    scanf("%s",dest);
+    for(int i=0;i<n;i++)
+    {
+        if(strcmp(src,r[i].trainroute)==0)
+        {
+                printf("this is right source choise\n");
+                flag=1;
+                break;
+                
+        }
+    }
+    if(flag==0)
+    {
+        printf("Select Again:--> there is no Stations Available\n");
+         goto lebel5;
+    }
+    flag=0;
+    for(int i=0;i<n;i++)
+    {
+        if(strcmp(dest,r[i].trainroute)==0)
+        {
+                printf("this is right Destination choise\n");
+                flag=1;
+                break;
+               
+                
+        }
+    }
+    if(flag==0)
+    {
+        printf("Select Again:--> there is no Stations Available\n");
+        goto lebel5;
+    }
+date();
+}
+
+int date()
+{
+   lebel8:
+   printf("Enter the Year :-->:\n");
+   scanf("%d",&year);
+   if(year>2021)
+   { 
+     lebel9:
+     printf("Enetr the month:\n");
+     scanf("%d",&month);
+     if(month>0 && month<13)
+       {
+          lebel7:
+          printf("Enter your Date of Jurney\n");
+          scanf("%d",&day);
+          if(day>0 && day <32)
+          {
+            printf("Date : %d\nMonth : %d\nYear : %d\n",day,month,year);
+          }       
+          else
+            {
+                printf("Wrong Input:::-->\n");
+                goto lebel7;
+            }       
+       }
+  else
+      {
+      printf("wrong Input\n");
+      goto lebel9;
+      }
+   }
+     else
+       {
+        printf("wrong input::-->\n");
+         goto lebel8;
+       }
+
+train();
+return 0;
+}
+
+void train()
+{
+  printf("\n\n\n========Welcome User======== Wait to load the Available Train ===========\n\n\n");
+  sleep(2);
+   printf("Available Trains Are::\n");
+  for(int i=0;i<num;i++)
+  {
+   printf("Name of the %d train: %s\n Number of %d train: %d\n Ticket price of the %d train: %d\n",i+1,p[i].trainname,i+1,p[i].trainnum,i+1,p[i].trainprice);
+  }
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
